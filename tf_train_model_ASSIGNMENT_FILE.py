@@ -71,8 +71,6 @@ class build_train:
                 test = sess.run(accuracy, { x: mnist.test.images, y_: mnist.test.labels })
                 print('test accuracy: ' + str(test))
 
-
-
         ############# END OF TRAINING SESSION ##############################
 
         ############# SAVE MODEL ###########################################
