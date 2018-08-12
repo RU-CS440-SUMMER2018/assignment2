@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import os
 from tensorflow.examples.tutorials.mnist import input_data
+import matplotlib.pyplot as plt
 
 class build_train:
     def __init__(self):
@@ -57,6 +58,8 @@ class build_train:
         sess = tf.InteractiveSession()                                      # DO NOT EDIT
         sess.run(tf.global_variables_initializer())                         # DO NOT EDIT
 
+        plotData =  []
+
         for i in range(1000):
 
             batch_xs, batch_ys = mnist.train.next_batch(100)
@@ -73,6 +76,13 @@ class build_train:
                 test = sess.run(accuracy, { x: mnist.test.images, y_: mnist.test.labels })
                 print('Test accuracy: ' + str(test) + '\n')
 
+                plotData.append({
+                    'iteration': iter,
+                    'train': train,
+                    'validation': validation,
+                    'test': test
+                })
+
         ############# END OF TRAINING SESSION ##############################
 
         ############# SAVE MODEL ###########################################
@@ -83,5 +93,13 @@ class build_train:
         ############# END OF SAVE MODEL ####################################
 
         ############# OUTPUT ACCURACY PLOT ################################     
+
+        plt.plot(
+            [i['iteration'] for i in plotData],
+            [i['train'] for i in plotData]
+        )
+        plt.ylabel('Accuracy')
+        plt.xlabel('Iterations')
+        plt.show()
 
         ############# END OF ACCURACY PLOT ################################
