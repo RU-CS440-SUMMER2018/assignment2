@@ -62,14 +62,16 @@ class build_train:
             batch_xs, batch_ys = mnist.train.next_batch(100)
             sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
-            if i % 100 == 0:
+            iter = i + 1
+            if iter % 100 == 0 or iter == 1:
 
+                print('Iteration ' + str(iter))
                 train = sess.run(accuracy, { x: mnist.train.images, y_: mnist.train.labels })
-                print('train accuracy: ' + str(train))
+                print('Train accuracy: ' + str(train))
                 validation = sess.run(accuracy, { x: mnist.validation.images, y_: mnist.validation.labels })
-                print('validation accuracy: ' + str(validation))
+                print('Validation accuracy: ' + str(validation))
                 test = sess.run(accuracy, { x: mnist.test.images, y_: mnist.test.labels })
-                print('test accuracy: ' + str(test))
+                print('Test accuracy: ' + str(test) + '\n')
 
         ############# END OF TRAINING SESSION ##############################
 
