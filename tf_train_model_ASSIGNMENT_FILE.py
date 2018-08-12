@@ -96,10 +96,22 @@ class build_train:
 
         plt.plot(
             [i['iteration'] for i in plotData],
-            [i['train'] for i in plotData]
+            [i['train'] for i in plotData],
+            label='Train'
+        )
+        plt.plot(
+            [i['iteration'] for i in plotData],
+            [i['validation'] for i in plotData],
+            label='Validation'
+        )
+        plt.plot(
+            [i['iteration'] for i in plotData],
+            [i['test'] for i in plotData],
+            label='Test'
         )
         plt.ylabel('Accuracy')
         plt.xlabel('Iterations')
+        plt.legend(loc='lower right')
         plt.show()
 
         ############# END OF ACCURACY PLOT ################################
