@@ -25,14 +25,11 @@ class build_train:
         y_ = tf.placeholder(data_type, array_shape, name='ph_y_')
         '''
         # OUTPUT VECTOR y MUST BE LENGTH 10, EACH OUTPUT NEURON CORRESPONDS TO A DIGIT 0-9
-        ################### YOUR MODEL GOES HERE ######################################################################
-        ################### YOUR MODEL GOES HERE ######################################################################
-        ################### YOUR MODEL GOES HERE ######################################################################
-        ################### YOUR MODEL GOES HERE ######################################################################
-        ################### YOUR MODEL GOES HERE ######################################################################
-        ################### YOUR MODEL GOES HERE ######################################################################
-        ################### YOUR MODEL GOES HERE ######################################################################
-
+        x = tf.placeholder(tf.float32, [None, 784])
+        y_ = tf.placeholder(tf.float32, [None, 10])
+        W = tf.Variable(tf.zeros([784, 10]))
+        b = tf.Variable(tf.zeros([10]))
+        y = tf.matmul(x, W) + b
 
         # LOSS FUNCTION, PREDICTION FUNCTION, ACCURACY FUNCTIONS
         # MAKE SURE ACCURCY FUNCTION IS NAMED ---name='op_accuracy'----
@@ -40,21 +37,17 @@ class build_train:
         EXAMPLE OF NAMING ACCURACY FUNCTION:
         accuracy = tf.reduce_mean(tf.cast(prediction, tf.float32), name='op_accuracy')
         '''
-        ############## YOUR LOSS AND ACCURACY FUNCTIONS GO HERE #######################################################
-        ############## YOUR LOSS AND ACCURACY FUNCTIONS GO HERE #######################################################
-        ############## YOUR LOSS AND ACCURACY FUNCTIONS GO HERE #######################################################
-        ############## YOUR LOSS AND ACCURACY FUNCTIONS GO HERE #######################################################
-        ############## YOUR LOSS AND ACCURACY FUNCTIONS GO HERE #######################################################
 
+        correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+        
         ############# END OF NEURAL NETWORK MODEL ##########################
 
         ############# CONSTRUCT TRAINING FUNCTION ##########################
 
         # TRAINING FUNCTION SHOULD USE YOUR LOSS FUNCTION TO OPTIMIZE THE MODEL PARAMETERS
-        ############## YOUR TRAINING FUNCTION GOES HERE ###############################################################
-        ############## YOUR TRAINING FUNCTION GOES HERE ###############################################################
-        ############## YOUR TRAINING FUNCTION GOES HERE ###############################################################
-        ############## YOUR TRAINING FUNCTION GOES HERE ###############################################################
+        cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(tf.nn.softmax(y)), reduction_indices=[1]))
+        train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
         ############# END OF TRAINING FUNCTION #############################
 
@@ -64,12 +57,11 @@ class build_train:
         sess = tf.InteractiveSession()                                      # DO NOT EDIT
         sess.run(tf.global_variables_initializer())                         # DO NOT EDIT
 
-        ############## YOUR TRAINING LOOP CODE GOES HERE #############################################################
-        ############## YOUR TRAINING LOOP CODE GOES HERE #############################################################
-        ############## YOUR TRAINING LOOP CODE GOES HERE #############################################################
-        ############## YOUR TRAINING LOOP CODE GOES HERE #############################################################
-        ############## YOUR TRAINING LOOP CODE GOES HERE #############################################################
-        ############## YOUR TRAINING LOOP CODE GOES HERE #############################################################
+        for _ in range(1000):
+            batch_xs, batch_ys = mnist.train.next_batch(100)
+            sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+
+        print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
         ############# END OF TRAINING SESSION ##############################
 
@@ -80,13 +72,6 @@ class build_train:
         sess.close()                                                        # DO NOT EDIT
         ############# END OF SAVE MODEL ####################################
 
-        ############# OUTPUT ACCURACY PLOT ################################
-
-        ############## YOUR MODEL ACCURCY PLOT CODE GOES HERE ########################################################
-        ############## YOUR MODEL ACCURCY PLOT CODE GOES HERE ########################################################
-        ############## YOUR MODEL ACCURCY PLOT CODE GOES HERE ########################################################
-        ############## YOUR MODEL ACCURCY PLOT CODE GOES HERE ########################################################
+        ############# OUTPUT ACCURACY PLOT ################################     
 
         ############# END OF ACCURACY PLOT ################################
-
-
