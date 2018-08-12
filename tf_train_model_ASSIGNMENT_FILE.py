@@ -63,7 +63,7 @@ class build_train:
             sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
             iter = i + 1
-            if iter % 100 == 0 or iter == 1:
+            if iter % 100 == 0:
 
                 print('Iteration ' + str(iter))
                 train = sess.run(accuracy, { x: mnist.train.images, y_: mnist.train.labels })
