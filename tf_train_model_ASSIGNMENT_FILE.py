@@ -57,11 +57,21 @@ class build_train:
         sess = tf.InteractiveSession()                                      # DO NOT EDIT
         sess.run(tf.global_variables_initializer())                         # DO NOT EDIT
 
-        for _ in range(1000):
+        for i in range(1000):
+
             batch_xs, batch_ys = mnist.train.next_batch(100)
             sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
-        print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+            if i % 100 == 0:
+
+                train = sess.run(accuracy, { x: mnist.train.images, y_: mnist.train.labels })
+                print('train accuracy: ' + str(train))
+                validation = sess.run(accuracy, { x: mnist.validation.images, y_: mnist.validation.labels })
+                print('validation accuracy: ' + str(validation))
+                test = sess.run(accuracy, { x: mnist.test.images, y_: mnist.test.labels })
+                print('test accuracy: ' + str(test))
+
+
 
         ############# END OF TRAINING SESSION ##############################
 
