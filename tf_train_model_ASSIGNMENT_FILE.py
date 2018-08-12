@@ -86,22 +86,28 @@ class build_train:
         sess = tf.InteractiveSession()                                      # DO NOT EDIT
         sess.run(tf.global_variables_initializer())                         # DO NOT EDIT
 
+        batchSize = 50
         plotData =  []
 
-        for i in range(1000):
+        for i in range(10000):
 
-            batch_xs, batch_ys = mnist.train.next_batch(100)
+            batch_xs, batch_ys = mnist.train.next_batch(batchSize)
             sess.run(train_step, feed_dict={ x: batch_xs, y_: batch_ys, keep_prob: 0.5 })
 
             iter = i + 1
             if iter % 100 == 0:
 
                 print('Iteration ' + str(iter))
-                train = sess.run(accuracy, { x: mnist.train.images, y_: mnist.train.labels, keep_prob: 1.0 })
+
+                train = sess.run(accuracy, { x: batch_xs, y_: batch_ys, keep_prob: 1.0 })
                 print('Train accuracy: ' + str(train))
-                validation = sess.run(accuracy, { x: mnist.validation.images, y_: mnist.validation.labels, keep_prob: 1.0 })
+
+                vxs, vys = mnist.validation.next_batch(batchSize)
+                validation = sess.run(accuracy, { x: vxs, y_: vys, keep_prob: 1.0 })
                 print('Validation accuracy: ' + str(validation))
-                test = sess.run(accuracy, { x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0 })
+
+                txs, tys = mnist.test.next_batch(batchSize)
+                test = sess.run(accuracy, { x: txs, y_: tys, keep_prob: 1.0 })
                 print('Test accuracy: ' + str(test) + '\n')
 
                 plotData.append({
