@@ -18,10 +18,10 @@ class build_train:
         ############### CONSTRUCT NEURAL NETWORK MODEL HERE ################
 
         # Holds array of images
-        x = tf.placeholder(tf.float32, [None, 784])
+        x = tf.placeholder(tf.float32, [None, 784], name='ph_x')
 
         # Holds array of labels
-        y_ = tf.placeholder(tf.float32, [None, 10])
+        y_ = tf.placeholder(tf.float32, [None, 10], name='ph_y_')
 
         # We can now implement our first layer. It will consist of convolution, 
         # followed by max pooling. The convolution will compute 32 features for 
@@ -75,7 +75,7 @@ class build_train:
 
         # Calculating accuracy
         correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
-        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32), name='op_accuracy')
         
         ############# END OF NEURAL NETWORK MODEL ##########################
 
@@ -141,7 +141,7 @@ class build_train:
         saver.save(sess, save_path=self.save_dir, global_step=network)      # DO NOT EDIT
         print('Model Saved')                                                # DO NOT EDIT
         sess.close()                                                        # DO NOT EDIT
-        
+
         ############# END OF SAVE MODEL ####################################
 
         ############# OUTPUT ACCURACY PLOT ################################     
