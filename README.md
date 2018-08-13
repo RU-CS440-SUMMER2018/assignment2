@@ -24,3 +24,13 @@ We used the Adam Optimizer, with step size 10^-4. When the step size is large, t
 ## Sensing
 
 The accuracy of the model is likely not as high as the accuracy of the plots. This is because there is likely to be noise in sensing which will lead to error. This issue isn’t an issue of machine learning itself, but rather an issue of data collection.
+
+## Accuracy Plot
+
+### Full Accuracy Plot 20,000 Iterations
+
+![Accuracy plot](images/AccuracyPlot.jpeg)
+
+### Zoomed-in Accuracy Plot
+
+![Zoomed-in accuracy plot](images/ZoomedinAccuracyPlot.jpeg)
