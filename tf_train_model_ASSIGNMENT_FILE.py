@@ -87,7 +87,6 @@ class build_train:
 
         ############# END OF TRAINING FUNCTION #############################
 
-
         ############# CONSTRUCT TRAINING SESSION ###########################
 
         saver = tf.train.Saver()                                            # DO NOT EDIT
