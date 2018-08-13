@@ -34,3 +34,11 @@ The accuracy of the model is likely not as high as the accuracy of the plots. Th
 ### Zoomed-in Accuracy Plot
 
 ![Zoomed-in accuracy plot](images/ZoomedinAccuracyPlot.jpeg)
+
+### Observations
+
+The accuracy plots at first has a generally trend of increasing at first for all three sets, and all three plots seem to increase in accuracy together, which makes sense as the model gets better it should perform better for all three data sets. After 5000 iterations it is rare for the accuracy to go below .98 percent, and after 15000 iterations the accuracy for the training data doesn’t go below 100 percent. This implies that the model’s loss function is near its minimum, and that the iterations can only improve the model slightly after 5000 iterations.
+
+## Extra Credit
+
+We were able to get the training accuracy to 100%, and the validation and test accuracy to in between 98-100%. The additional training ceased to significantly increase accuracy after 5000 iterations. The convolution layers, and fully-connected layers helped most, while dropout didn’t add much to accuracy.
